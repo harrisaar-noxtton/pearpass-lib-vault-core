@@ -638,15 +638,20 @@ export const getBlindMirrors = async () => {
   const mirrors = await activeVaultInstance.getMirror()
   const mirrorsArray = Array.isArray(mirrors) ? mirrors : []
 
-  const metadata = await activeVaultGet('mirror-metadata').catch(() => null)
-  const isDefault = metadata?.isDefault ?? false
+  try {
+    const metadata = await activeVaultGet('mirror-metadata')
 
-  const enrichedMirrors = mirrorsArray.map((mirror) => ({
-    ...mirror,
-    isDefault
-  }))
+    const isDefault = metadata?.isDefault ?? false
 
-  return enrichedMirrors
+    const enrichedMirrors = mirrorsArray.map((mirror) => ({
+      ...mirror,
+      isDefault
+    }))
+
+    return enrichedMirrors
+  } catch (error) {
+    throw new Error(`[getBlindMirrors]: Failed to get mirror metadata: ${error.message}`)
+  }
 }
 
 /**
@@ -724,4 +729,6 @@ export const removeAllBlindMirrors = async () => {
   await Promise.all(
     currentKeys.map((key) => activeVaultInstance.removeMirror(key))
   )
+
+  await vaultRemove('mirror-metadata')
 }
