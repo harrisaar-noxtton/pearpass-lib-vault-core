@@ -245,7 +245,6 @@ class MasterPasswordManager {
       newHashedPassword,
       activeVaultId,
       masterEncryptionKey: currentVaultKey,
-      coreStoreOptions
     })
 
     return {
@@ -286,7 +285,6 @@ class MasterPasswordManager {
     newHashedPassword,
     activeVaultId,
     masterEncryptionKey,
-    coreStoreOptions = {}
   }) {
     if (getIsActiveVaultInitialized()) {
       await closeActiveVaultInstance()
@@ -308,8 +306,7 @@ class MasterPasswordManager {
         path: `vault/${vault.id}`,
         encryptionKey: masterEncryptionKey,
         newHashedPassword,
-        currentHashedPassword,
-        coreStoreOptions
+        currentHashedPassword
       })
 
       await vaultInstance.close()
@@ -319,8 +316,7 @@ class MasterPasswordManager {
     if (activeVaultId && masterEncryptionKey) {
       await initActiveVaultInstance({
         id: activeVaultId,
-        encryptionKey: masterEncryptionKey,
-        coreStoreOptions
+        encryptionKey: masterEncryptionKey
       })
     }
 
