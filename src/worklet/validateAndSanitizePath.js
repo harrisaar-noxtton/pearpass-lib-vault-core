@@ -27,6 +27,14 @@ export const validateAndSanitizePath = (rawPath) => {
     throw new Error('Storage path cannot be empty after sanitization')
   }
 
+  // Decode URL-encoded characters before validation
+  // This catches encoded traversal sequences like %2e%2e (encoded ..)
+  try {
+    cleanPath = decodeURIComponent(cleanPath)
+  } catch {
+    throw new Error('Storage path contains invalid URL encoding')
+  }
+
   // Check for null bytes before any processing (path traversal attack vector)
   if (cleanPath.includes('\0')) {
     throw new Error('Storage path contains invalid null bytes')
