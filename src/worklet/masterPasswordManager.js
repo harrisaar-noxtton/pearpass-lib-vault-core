@@ -1,3 +1,5 @@
+import { constantTimeHashCompare } from 'pearpass-utils-password-check'
+
 import {
   encryptionAdd,
   encryptionGet,
@@ -17,7 +19,6 @@ import {
   activeVaultGet,
   initInstanceWithNewBlindEncryption
 } from './appDeps'
-import { constantTimeHashCompare } from './constantTimeHashCompare'
 import { decryptVaultKey } from './decryptVaultKey'
 import { encryptVaultKeyWithHashedPassword } from './encryptVaultKeyWithHashedPassword'
 import { encryptVaultWithKey } from './encryptVaultWithKey'

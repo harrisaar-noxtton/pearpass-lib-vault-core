@@ -1,5 +1,6 @@
+import * as constantTimeHashCompareModule from 'pearpass-utils-password-check'
+
 import * as appDeps from './appDeps'
-import * as constantTimeHashCompareModule from './constantTimeHashCompare'
 import * as decryptVaultKeyModule from './decryptVaultKey'
 import * as encryptVaultKeyWithHashedPasswordModule from './encryptVaultKeyWithHashedPassword'
 import * as encryptVaultWithKeyModule from './encryptVaultWithKey'
@@ -47,7 +48,7 @@ jest.mock('./hashPassword', () => ({
   hashPassword: jest.fn()
 }))
 
-jest.mock('./constantTimeHashCompare', () => ({
+jest.mock('pearpass-utils-password-check', () => ({
   constantTimeHashCompare: jest.fn()
 }))
 
@@ -84,8 +85,7 @@ describe('masterPasswordManager', () => {
       ).toHaveBeenCalledWith('hashed')
       expect(appDeps.masterVaultInit).toHaveBeenCalledWith({
         encryptionKey: 'vault-key',
-        hashedPassword: 'hashed',
-        coreStoreOptions: {}
+        hashedPassword: 'hashed'
       })
       expect(appDeps.vaultsAdd).toHaveBeenCalledWith('masterEncryption', {
         ciphertext: 'ct',
@@ -281,8 +281,7 @@ describe('masterPasswordManager', () => {
       })
       expect(appDeps.masterVaultInit).toHaveBeenCalledWith({
         encryptionKey: 'vault-key',
-        hashedPassword: 'hash',
-        coreStoreOptions: {}
+        hashedPassword: 'hash'
       })
       expect(result).toEqual({ success: true })
     })
