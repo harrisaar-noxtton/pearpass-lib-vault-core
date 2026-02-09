@@ -50,7 +50,9 @@ export const API = {
   MASTER_PASSWORD_INIT_WITH_CREDENTIALS: 46,
   BACKGROUND_BEGIN: 47,
   BACKGROUND_END: 48,
-  SET_CORE_STORE_OPTIONS: 49
+  SET_CORE_STORE_OPTIONS: 49,
+
+  FETCH_FAVICON: 50
 }
 
 export const API_BY_VALUE = Object.entries(API).reduce((acc, [key, value]) => {

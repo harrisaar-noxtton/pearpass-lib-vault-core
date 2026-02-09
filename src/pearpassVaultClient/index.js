@@ -693,4 +693,16 @@ export class PearpassVaultClient extends EventEmitter {
       command: API.BACKGROUND_END
     })
   }
+
+  /**
+   * Tests IPC by sending a URL to be logged by the backend.
+   * @param {string} url - The URL to log.
+   * @returns {Promise<void>}
+   */
+  async fetchFavicon(url) {
+    return this._handleRequest({
+      command: API.FETCH_FAVICON,
+      data: { url }
+    })
+  }
 }
