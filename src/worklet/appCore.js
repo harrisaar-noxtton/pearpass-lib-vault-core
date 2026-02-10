@@ -110,7 +110,6 @@ export const handleRpcCommand = async (req) => {
           JSON.stringify({
             success: true,
             data: {
-              received: true,
               url: requestData?.url,
               favicon: faviconBase64
             }
