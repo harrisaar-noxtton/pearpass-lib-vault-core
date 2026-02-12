@@ -106,6 +106,10 @@ export const handleRpcCommand = async (req) => {
           requestData?.url
         )
 
+        if (!faviconBase64) {
+          throw new Error('Favicon not found')
+        }
+
         req.reply(
           JSON.stringify({
             success: true,
